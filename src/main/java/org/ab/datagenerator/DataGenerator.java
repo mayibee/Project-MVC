@@ -38,4 +38,26 @@ public class DataGenerator {
         );
         return managerList;
     }
+    public static List<String> getProjectList() {
+        List<String> projectList = Arrays.asList(
+                "Not Started",
+                "In Progress",
+                "Dev In Progress",
+                "SIT In Progress",
+                "UAT In Progress",
+                "Completed"
+        );
+        return projectList;
+    }
+    public static List<String> getAssigneeList() {
+        List<String> assigneeList = Arrays.asList(
+                "Not Started",
+                "In Progress",
+                "Dev In Progress",
+                "SIT In Progress",
+                "UAT In Progress",
+                "Completed"
+        );
+        return assigneeList;
+    }
 }

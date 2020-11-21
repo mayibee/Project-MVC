@@ -8,15 +8,10 @@ import lombok.*;
 @Setter
 @ToString
 public class Task {
-    private String firstName;
-    private String lastName;
-    private String birthday;
-    private String email;
-    private String password;
-    private String address;
-    private String address2;
-    private String city;
-    private String state;
-    private String zipCode;
-
+    private String taskSummary;
+    private String taskDetails;
+    private String project;
+    private String assignee;
+    private String assignedDate;
+    private String taskStatus;
 }

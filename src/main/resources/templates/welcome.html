@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <div th:replace="/fragments/head :: head-header"></div>
+</head>
+<body>
+<div class="dashboard-main-wrapper">
+    <div th:replace="/fragments/header :: header"></div>
+    <div th:replace="/fragments/left-sidebar :: left-sidebar"></div>
+    <div class="dashboard-wrapper">
+        <div class="dashboard-ecommerce">
+            <div class="container-fluid dashboard-content">
+                <div class="row">
+                    <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+                        <div class="page-header">
+                            <h2 class="pageheader-title"><i class="fa fa-fw fas fa-home"></i>
+                                Ticketing Dashboard
+                            </h2>
+                            <p class="pageheader-text"></p>
+                            <div class="page-breadcrumb">
+                                <nav aria-label="breadcrumb">
+                                    <ol class="breadcrumb">
+                                        <li class="breadcrumb-item">
+                                            <a href="#" class="breadcrumb-link">Dashboard</a>
+                                        </li>
+                                    </ol>
+                                </nav>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- search bar  ============================================================== -->
+                <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+                    <div class="card">
+                        <div class="card-body">
+                            <form>
+                                <input class="form-control form-control-lg" type="search" placeholder="Search"
+                                       aria-label="Search">
+                                <button class="btn btn-primary search-btn" type="submit">Search</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+<!--                <div class="ecommerce-widget">-->
+<!--                    <h2>Welcome To Ticketing Project!</h2>-->
+<!--                </div>-->
+            </div>
+        </div>
+    </div>
+</div>
+<div>
+    <div th:replace="/fragments/footer :: footer"></div>
+</div>
+    <div th:replace="/fragments/javascript :: js"></div>
+</body>
+</html>

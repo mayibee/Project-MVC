@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="/fragments/head :: head-header"></head>
+<body>
+<div class="dashboard-main-wrapper">
+    <div th:replace="/fragments/header :: header"></div>
+    <div th:replace="/fragments/left-sidebar :: left-sidebar"></div>
+    <div class="dashboard-wrapper">
+        <div class="dashboard-ecommerce">
+            <div class="container-fluid dashboard-content">
+                <div class="ecommerce-widget">
+                    <!-- pageheader  ============================================================== -->
+                    <div class="row">
+                        <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+                            <div class="page-header">
+                                <h2 class="pageheader-title"><i class="fa fa-fw fa-dog"></i>
+                                    Administrator
+                                </h2>
+                                <p class="pageheader-text">
+                                </p>
+                                <div class="page-breadcrumb">
+                                    <nav aria-label="breadcrumb">
+                                        <ol class="breadcrumb">
+                                            <li class="breadcrumb-item">
+                                                <a href="#" class="breadcrumb-link">Administrator</a>
+                                            </li>
+                                            <li class="breadcrumb-item active" aria-current="page">
+                                                Create User
+                                            </li>
+                                        </ol>
+                                    </nav>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- ============================================================== -->
+                </div>
+                <!-- create user  -->
+                <!-- ============================================================== -->
+                <div class="row">
+                    <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+                        <div class="section-block" id="basicForm">
+                            <h3 class="section-title">New User</h3>
+                        </div>
+                        <div class="card">
+                            <div class="card-body">
+                                <form class="needs-validation" novalidate action="#" th:action="@{/admin/create-user}" method="post"  th:object="${user}">
+                                    <div class="form-group row">
+                                        <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12 mb-2 form-group">
+                                            <label for="firstName" class="col-form-label">First Name</label>
+                                            <input id="firstName" th:field="*{firstName}" required="" type="text" class="form-control">
+                                            <div class="invalid-feedback">
+                                                Please enter first name.
+                                            </div>
+                                        </div>
+                                        <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12 mb-2 form-group">
+                                            <label for="lastName" class="col-form-label">Last Name</label>
+                                            <input id="lastName" th:field="*{lastName}" required="" type="text" class="form-control">
+                                            <div class="invalid-feedback">
+                                                Please enter last name.
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group row">
+                                        <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12 mb-2 form-group">
+                                            <label for="email">Email Address</label>
+                                            <input id="email" th:field="*{email}" required="" type="email" placeholder="name@example.com" class="form-control">
+                                            <div class="invalid-feedback">
+                                                Please enter email.
+                                            </div>
+                                        </div>
+                                        <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12 mb-2 form-group">
+                                            <label for="phone-mask">Phone <small class="text-muted">(999) 999-9999</small></label>
+                                            <input type="text" th:field="*{phone}" required="" class="form-control phone-inputmask" id="phone-mask" im-insert="true" placeholder="">
+                                            <div class="invalid-feedback">
+                                                Please enter phone number.
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group row">
+                                        <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12 mb-2 form-group">
+                                            <label for="pass" class="col-form-label">Password</label>
+                                            <input id="pass" th:field="*{password}" type="password" required="" placeholder="Minimum 8 characters" class="form-control">
+                                            <div class="invalid-feedback">
+                                                Please enter password.
+                                            </div>
+                                        </div>
+                                        <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12 mb-2 form-group">
+                                            <label for="pass2" class="col-form-label">Confirm Password</label>
+                                            <input id="pass2" th:field="*{passwordConfirm}" type="password" required="" data-parsley-equalto="#pass" class="form-control">
+                                            <div class="invalid-feedback">
+                                                Please reenter password.
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group row">
+                                        <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12 mb-2 form-group">
+                                            <label class="col-form-label">Gender</label>
+                                            <form >
+                                                <label for="female" class="custom-control custom-radio">
+                                                    <input id="female" type="radio" name="radio-gender" class="custom-control-input"><span class="custom-control-label">Female</span>
+                                                </label>
+                                                <label for="male" class="custom-control custom-radio">
+                                                    <input id="male" type="radio" name="radio-gender" class="custom-control-input"><span class="custom-control-label">Male</span>
+                                                </label>
+                                                <label for="nonbinary" class="custom-control custom-radio">
+                                                    <input id="nonbinary" type="radio" name="radio-gender" class="custom-control-input"><span class="custom-control-label">Non-Binary</span>
+                                                </label>
+                                                <div class="invalid-feedback">
+                                                    Please select gender.
+                                                </div>
+                                            </form>
+
+                                        </div>
+                                        <div class="col">
+                                            <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12 mb-2 form-group">
+                                                <label for="role" class="col-form-label">Role</label>
+                                                <select class="form-control" id="role" th:field="*{role}">
+                                                    <option th:each="theRole : ${roleList}" th:value="${theRole}" th:text="${theRole}"></option>
+                                                </select>
+                                                <div class="invalid-feedback">
+                                                    Please select role.
+                                                </div>
+                                            </div>
+                                            <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12 mb-2 form-group">
+                                                <button type="submit" class="btn btn-space btn-primary">Save</button>
+                                                <button class="btn btn-space btn-secondary">Reset</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- responsive user table -->
+                <!-- ============================================================== -->
+                <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+                    <div class="section-block">
+                        <h3 class="section-title">User List</h3>
+                    </div>
+                    <div class="card">
+                        <div class="card-body">
+                            <div class="table-responsive ">
+                                <table class="table">
+                                    <thead>
+                                    <tr>
+                                        <th scope="col">#</th>
+                                        <th scope="col">Name</th>
+                                        <th scope="col">Gender</th>
+                                        <th scope="col">Email</th>
+                                        <th scope="col">Cell</th>
+                                        <th scope="col">Role</th>
+                                        <th scope="col">Action</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    <tr th:each="user, iStat : ${userList}" >
+                                        <th th:text="${iStat.index+1}"scope="row"></th>
+                                        <td th:text="${user.firstName}+' '+ ${user.lastName}"></td>
+                                        <td th:text="${user.gender}"></td>
+                                        <td th:text="${user.email}"></td>
+                                        <td th:text="${user.phone}"></td>
+                                        <td th:text="${user.role}"></td>
+                                        <td class="actions">
+                                            <button type="submit" class="btn btn-space btn-primary fas fa-edit"></button>
+                                            <button class="btn btn-space btn-secondary fas fa-eraser"></button>
+                                        </td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ------------------------TABLE END----------------------------- -->
+        </div>
+    </div>
+    <div th:replace="/fragments/footer :: footer"></div>
+</div>
+<div th:replace="/fragments/javascript :: js"></div>
+</body>
+</html>

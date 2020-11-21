@@ -44,7 +44,7 @@
                         </div>
                         <div class="card">
                             <div class="card-body">
-                                <form class="needs-validation" novalidate action="#" th:action="@{/admin/create-user}" method="post"  th:object="${user}">
+                                <form class="needs-validation" novalidate action="#" th:action="@{/user/create}" method="post"  th:object="${user}">
                                     <div class="form-group row">
                                         <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12 mb-2 form-group">
                                             <label for="firstName" class="col-form-label">First Name</label>
@@ -64,7 +64,7 @@
                                     <div class="form-group row">
                                         <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12 mb-2 form-group">
                                             <label for="email">Email Address</label>
-                                            <input id="email" th:field="*{email}" required="" type="email" placeholder="name@example.com" class="form-control">
+                                            <input id="email" th:field="*{userName}" required="" type="email" placeholder="name@example.com" class="form-control">
                                             <div class="invalid-feedback">
                                                 Please enter email.
                                             </div>
@@ -88,7 +88,7 @@
                                         </div>
                                         <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12 mb-2 form-group">
                                             <label for="pass2" class="col-form-label">Confirm Password</label>
-                                            <input id="pass2" th:field="*{passwordConfirm}" type="password" required="" data-parsley-equalto="#pass" class="form-control"
+                                            <input id="pass2" th:field="*{password}" type="password" required="" data-parsley-equalto="#pass" class="form-control"
                                                    pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}">
                                             <div class="invalid-feedback">
                                                 Please enter valid password. Must contain at least one number and one uppercase and lowercase letter, and at least 8 or more characters.
@@ -98,25 +98,26 @@
                                     <div class="form-group row">
                                         <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12 mb-2 form-group">
                                             <label class="col-form-label">Gender</label>
-                                            <form >
+                                            <div >
                                                 <label for="female" class="custom-control custom-radio">
-                                                    <input id="female" type="radio" name="radio-gender" class="custom-control-input"><span class="custom-control-label">Female</span>
+                                                    <input id="female" th:field="*{gender}" th:value="Female" type="radio" name="radio-gender" class="custom-control-input"><span class="custom-control-label">Female</span>
                                                 </label>
                                                 <label for="male" class="custom-control custom-radio">
-                                                    <input id="male" type="radio" name="radio-gender" class="custom-control-input"><span class="custom-control-label">Male</span>
+                                                    <input id="male" th:field="*{gender}" th:value="Male" type="radio" name="radio-gender" class="custom-control-input"><span class="custom-control-label">Male</span>
                                                 </label>
                                                 <label for="nonbinary" class="custom-control custom-radio">
-                                                    <input id="nonbinary" type="radio" name="radio-gender" class="custom-control-input"><span class="custom-control-label">Non-Binary</span>
+                                                    <input id="nonbinary" th:field="*{gender}" th:value="Non-Binary" type="radio" name="radio-gender" class="custom-control-input"><span class="custom-control-label">Non-Binary</span>
                                                 </label>
                                                 <div class="invalid-feedback">
                                                     Please select gender.
                                                 </div>
-                                            </form>
+                                            </div>
                                         </div>
                                         <div class="col">
                                             <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12 mb-2 form-group">
                                                 <label for="role" class="col-form-label">Role</label>
                                                 <select class="form-control" id="role" th:field="*{role}">
+                                                    <option th:value=" ''" th:text="Select"></option>
                                                     <option th:each="theRole : ${roleList}" th:value="${theRole}" th:text="${theRole}"></option>
                                                 </select>
                                                 <div class="invalid-feedback">

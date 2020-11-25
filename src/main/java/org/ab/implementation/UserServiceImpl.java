@@ -2,7 +2,6 @@ package org.ab.implementation;
 
 import org.ab.dto.UserDTO;
 import org.ab.service.UserService;
-import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -32,5 +31,10 @@ public class UserServiceImpl extends AbstractMapService<UserDTO, String> impleme
     @Override
     public UserDTO findById(String id) {
         return super.findById(id);
+    }
+
+    @Override
+    public void update(UserDTO object) {
+        super.update(object.getUserName(), object);
     }
 }

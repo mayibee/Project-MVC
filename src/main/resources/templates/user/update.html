@@ -25,7 +25,7 @@
                                                 <a href="#" class="breadcrumb-link">Administrator</a>
                                             </li>
                                             <li class="breadcrumb-item active" aria-current="page">
-                                                Create User
+                                                Update User
                                             </li>
                                         </ol>
                                     </nav>
@@ -35,12 +35,12 @@
                     </div>
                     <!-- ============================================================== -->
                 </div>
-                <!-- create user  -->
+                <!-- update user  -->
                 <!-- ============================================================== -->
                 <div class="row">
                     <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
                         <div class="section-block" id="basicForm">
-                            <h3 class="section-title">New User</h3>
+                            <h3 class="section-title">Edit User</h3>
                         </div>
                         <div class="card">
                             <div class="card-body">
@@ -116,9 +116,10 @@
                                         <div class="col">
                                             <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12 mb-2 form-group">
                                                 <label for="role" class="col-form-label">Role</label>
-                                                <select class="form-control" id="role" th:field="*{role}">
+                                                <select class="form-control" id="role" name="role">
                                                     <option th:value=" ''" th:text="Select"></option>
-                                                    <option th:each="role : ${roles}" th:value="${role.id}" th:text="${role.description}"></option>
+                                                    <option th:each="role : ${roles}" th:value="${role.getRole().id}" th:text="${role.getRole().description}"
+                                                            th:selected="${role.getRole().id}==${user.role.id}"></option>
                                                 </select>
                                                 <div class="invalid-feedback">
                                                     Please select role.
@@ -165,8 +166,8 @@
                                         <td th:text="${user.phone}"></td>
                                         <td th:text="${user.role.description}"></td>
                                         <td class="actions">
-                                            <a th:href="@{/user/update/{id}(id=${user.userName})}" ><button type="submit" class="btn btn-space btn-primary fas fa-edit" ></button></a>
-                                            <a th:href="@{/user/delete/{id}(id=${user.userName})}" ><button class="btn btn-space btn-secondary fas fa-eraser"></button></a>
+                                            <button type="submit" class="btn btn-space btn-primary fas fa-edit"></button>
+                                            <button class="btn btn-space btn-secondary fas fa-eraser"></button>
                                         </td>
                                     </tr>
                                     </tbody>

@@ -1,15 +1,18 @@
 package org.ab.implementation;
 
 import org.ab.dto.RoleDTO;
-import org.ab.dto.UserDTO;
 import org.ab.service.RoleService;
-import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
 @Service
 public class RoleServiceImpl extends AbstractMapService<RoleDTO,Long> implements RoleService {
+    @Override
+    public void update(RoleDTO object) {
+        super.update(object.getId(), object);
+    }
+
     @Override
     public List<RoleDTO> findAll() {
         return super.findAll();

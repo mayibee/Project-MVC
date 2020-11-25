@@ -7,10 +7,7 @@ import org.ab.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.Arrays;
 
@@ -38,6 +35,24 @@ public class UserController {
         model.addAttribute("user", new UserDTO());
         model.addAttribute("roles", roleService.findAll());
         model.addAttribute("users", userService.findAll());
+        return "user/create";
+    }
+
+    @GetMapping("/update/{userName}")
+    public String editUser(@PathVariable("userName") String username, Model model) {
+        model.addAttribute("user", userService.findById(username));
+        model.addAttribute("users", userService.findAll());
+        model.addAttribute("roles", userService.findAll());
+        return "user/update";
+    }
+
+    @PostMapping("/update/{userName}")
+    public String updateUser(@PathVariable("userName") String username, UserDTO user, Model model){
+        userService.update(user);
+        model.addAttribute("user", new UserDTO());
+        model.addAttribute("users", userService.findAll());
+        model.addAttribute("roles", roleService.findAll());
+
         return "user/create";
     }
 }

@@ -118,7 +118,7 @@
                                                 <label for="role" class="col-form-label">Role</label>
                                                 <select class="form-control" id="role" th:field="*{role}">
                                                     <option th:value=" ''" th:text="Select"></option>
-                                                    <option th:each="theRole : ${roleList}" th:value="${theRole}" th:text="${theRole}"></option>
+                                                    <option th:each="role : ${roles}" th:value="${role.description}" th:text="${role.description}"></option>
                                                 </select>
                                                 <div class="invalid-feedback">
                                                     Please select role.
@@ -157,13 +157,13 @@
                                     </tr>
                                     </thead>
                                     <tbody>
-                                    <tr th:each="user, iStat : ${userList}" >
+                                    <tr th:each="user, iStat : ${users}" >
                                         <th th:text="${iStat.index+1}"scope="row"></th>
                                         <td th:text="${user.firstName}+' '+ ${user.lastName}"></td>
-                                        <td th:text="${user.gender}"></td>
-                                        <td th:text="${user.email}"></td>
+                                        <td th:text="${user.gender.value}"></td>
+                                        <td th:text="${user.userName}"></td>
                                         <td th:text="${user.phone}"></td>
-                                        <td th:text="${user.role}"></td>
+                                        <td th:text="${user.role.description}"></td>
                                         <td class="actions">
                                             <button type="submit" class="btn btn-space btn-primary fas fa-edit"></button>
                                             <button class="btn btn-space btn-secondary fas fa-eraser"></button>

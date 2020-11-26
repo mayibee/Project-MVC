@@ -25,7 +25,7 @@
                                                 <a href="#" class="breadcrumb-link">Administrator</a>
                                             </li>
                                             <li class="breadcrumb-item active" aria-current="page">
-                                                Create Project
+                                                Update Project
                                             </li>
                                         </ol>
                                     </nav>
@@ -40,39 +40,46 @@
                 <div class="row">
                     <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
                         <div class="section-block" id="basicForm">
-                            <h3 class="section-title">New Project</h3>
+                            <h3 class="section-title">Update Project</h3>
                         </div>
                         <div class="card">
                             <div class="card-body">
-                                <form class="needs-validation" novalidate action="#" th:action="@{/project/create}" method="post"  th:object="${project}">
+                                <form class="needs-validation" novalidate action="#"
+                                      th:action="@{/project/update/{id}(id=${project.projectCode})}" method="post"
+                                      th:object="${project}">
                                     <div class="form-group row">
                                         <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12 mb-2 form-group">
                                             <label for="projectName" class="col-form-label">Project Name</label>
-                                            <input id="projectName" th:field="*{projectName}" required="" type="text" class="form-control">
+                                            <input id="projectName" th:field="*{projectName}" required="" type="text"
+                                                   class="form-control">
                                             <div class="invalid-feedback">Please enter project name.</div>
                                         </div>
                                         <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12 mb-2offset-md-1 form-group">
                                             <label for="projectCode" class="col-form-label">Project Code</label>
-                                            <input id="projectCode" th:field="*{projectCode}" required="" type="text" placeholder="" class="form-control">
+                                            <input id="projectCode" th:field="*{projectCode}" required="" type="text"
+                                                   placeholder="" class="form-control">
                                             <div class="invalid-feedback">Please enter project code.</div>
                                         </div>
                                     </div>
                                     <div class="form-group row">
                                         <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12 mb-2 form-group">
                                             <label for="assignedManager" class="col-form-label">Assigned Manager</label>
-                                            <select class="form-control" id="assignedManager" th:field="*{assignedManager}">
+                                            <select class="form-control custom-select" id="assignedManager" name="assignedManager" required>
                                                 <option th:value=" ''" th:text="Select"></option>
-                                                <option th:each="manager : ${managers}" th:value="${manager.userName}" th:text="${manager.firstName+' '+manager.lastName}"></option>
+                                                <option th:each="manager : ${managers}" th:value="${manager.userName}" th:text="${manager.firstName+' '+manager.lastName}"
+                                                        th:selected="${manager.userName} == ${project.assignedManager.userName}"></option>
                                             </select>
                                             <div class="invalid-feedback">Please enter assigned manager.</div>
                                         </div>
-<!--                                        <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12 mb-2 form-group">-->
-<!--                                            <label for="projectStatus" class="col-form-label">Project Status</label>-->
-<!--                                            <select class="form-control" id="projectStatus" th:field="*{status}">-->
-<!--                                                <option th:each="theStatus : ${status}" th:value="${Status}" th:text="${Status}"></option>-->
-<!--                                            </select>-->
-<!--                                            <div class="invalid-feedback">Please enter status.</div>-->
-<!--                                        </div>-->
+                                        <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12 mb-2 form-group">
+                                            <label for="projectStatus" class="col-form-label">Project Status</label>
+                                            <select class="form-control custom-select" id="projectStatus" name="projectStatus" required>
+                                                <option th:value=" ''" th:text="Select"></option>
+                                                <option th:each="projectStatus : ${statusList}" th:value="${projectStatus}" th:text="${projectStatus}"
+                                                        th:selected="${projectStatus} == ${project.status}"></option>
+                                            </select>
+                                            <div class="invalid-feedback">Please enter status.</div>
+                                        </div>
                                     </div>
                                     <div class="form-group row">
                                         <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12 mb-2 form-group">
@@ -94,7 +101,8 @@
                                         <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 mb-2 form-group">
                                             <div class="form-group">
                                                 <label for="projectDetails">Project Details</label>
-                                                <textarea class="form-control" id="projectDetails" th:field="*{details}" rows="3"></textarea>
+                                                <textarea class="form-control" id="projectDetails" th:field="*{details}"
+                                                          rows="3"></textarea>
                                                 <div class="invalid-feedback">Please enter project details.</div>
                                             </div>
                                         </div>
@@ -114,7 +122,7 @@
                 <!-- ============================================================== -->
                 <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
                     <div class="section-block">
-                        <h3 class="section-title">User List</h3>
+                        <h3 class="section-title">Project List</h3>
                     </div>
                     <div class="card">
                         <div class="card-body">
@@ -132,7 +140,7 @@
                                     </tr>
                                     </thead>
                                     <tbody>
-                                    <tr th:each="project, iStat : ${projects}" >
+                                    <tr th:each="project, iStat : ${projects}">
                                         <th th:text="${iStat.index+1}" scope="row"></th>
                                         <td th:text="${project.projectCode}"></td>
                                         <td th:text="${project.projectName}"></td>
@@ -140,9 +148,15 @@
                                         <td th:text="${project.assignedManager.firstName+' '+project.assignedManager.lastName}"></td>
                                         <td th:text="${project.status.value}"></td>
                                         <td class="actions">
-                                            <a th:href="@{/project/update/{id}(id=${project.projectCode})}" ><button class="btn btn-space btn-primary fas fa-edit"></button></a>
-                                            <a th:href="@{/project/delete/{id}(id=${project.projectCode})}" ><button class="btn btn-space btn-secondary fas fa-eraser"></button></a>
-                                            <a th:href="@{/project/complete/{id}(id=${project.projectCode})}" ><button class="btn btn-space btn-success fas fa-check-square"></button></a>
+                                            <a th:href="@{/project/update/{id}(id=${project.projectCode})}">
+                                                <button class="btn btn-space btn-primary fas fa-edit"></button>
+                                            </a>
+                                            <a th:href="@{/project/delete/{id}(id=${project.projectCode})}">
+                                                <button class="btn btn-space btn-secondary fas fa-eraser"></button>
+                                            </a>
+                                            <a th:href="@{/project/complete/{id}(id=${project.projectCode})}">
+                                                <button class="btn btn-space btn-success fas fa-check-square"></button>
+                                            </a>
                                         </td>
                                     </tr>
                                     </tbody>
@@ -159,5 +173,11 @@
     <div th:replace="/fragments/footer :: footer"></div>
 </div>
 <div th:replace="/fragments/javascript :: js"></div>
+</body>
+</html>
+</title>
+</head>
+<body>
+
 </body>
 </html>

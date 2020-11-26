@@ -1,6 +1,7 @@
 package org.ab.controller;
 
 import org.ab.dto.ProjectDTO;
+import org.ab.dto.UserDTO;
 import org.ab.enums.Status;
 import org.ab.service.ProjectService;
 import org.ab.service.UserService;
@@ -43,4 +44,18 @@ public class ProjectController {
         return "redirect:/project/create";
     }
 
+    @GetMapping("/update/{projectCode}")
+    public String editProject(@PathVariable("projectCode") String projectCode, Model model) {
+        model.addAttribute("project", projectService.findById(projectCode));
+        model.addAttribute("managers", userService.findAll());
+        model.addAttribute("projects", projectService.findAll());
+        model.addAttribute("statusList", Status.values());
+        return "/project/update";
+    }
+
+    @PostMapping("/update/{projectCode}")
+    public String updateProject(@PathVariable("projectCode") String projectCode, ProjectDTO project, Model model){
+        projectService.update(project);
+        return "redirect:/project/create";
+    }
 }

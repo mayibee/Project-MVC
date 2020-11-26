@@ -1,7 +1,5 @@
 package org.ab.service;
 
-import org.ab.dto.RoleDTO;
-
 import java.util.List;
 
 public interface CrudService<T,ID>{

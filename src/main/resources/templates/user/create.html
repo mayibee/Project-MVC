@@ -116,7 +116,7 @@
                                         <div class="col">
                                             <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12 mb-2 form-group">
                                                 <label for="role" class="col-form-label">Role</label>
-                                                <select class="form-control" id="role" th:field="*{role}">
+                                                <select class="form-control custom-select" id="role" name="role" th:field="*{role}" required>
                                                     <option th:value=" ''" th:text="Select"></option>
                                                     <option th:each="role : ${roles}" th:value="${role.id}" th:text="${role.description}"></option>
                                                 </select>
@@ -158,7 +158,7 @@
                                     </thead>
                                     <tbody>
                                     <tr th:each="user, iStat : ${users}" >
-                                        <th th:text="${iStat.index+1}"scope="row"></th>
+                                        <th th:text="${iStat.index+1}" scope="row"></th>
                                         <td th:text="${user.firstName}+' '+ ${user.lastName}"></td>
                                         <td th:text="${user.gender.value}"></td>
                                         <td th:text="${user.userName}"></td>

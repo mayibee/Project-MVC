@@ -2,8 +2,6 @@ package org.ab.service;
 
 import org.ab.dto.UserDTO;
 
-import java.util.List;
-
 public interface UserService extends CrudService<UserDTO, String>{
     //Dont need the methods anymore as they all come from CrudService
 //    //save

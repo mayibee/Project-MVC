@@ -40,11 +40,11 @@
                 <div class="row">
                     <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
                         <div class="section-block" id="basicForm">
-                            <h3 class="section-title">Edit User</h3>
+                            <h3 class="section-title">Update User</h3>
                         </div>
                         <div class="card">
                             <div class="card-body">
-                                <form class="needs-validation" novalidate action="#" th:action="@{/user/create}" method="post"  th:object="${user}">
+                                <form class="needs-validation" novalidate action="#" th:action="@{/user/update/{id}(id=${user.userName})}" method="post"  th:object="${user}">
                                     <div class="form-group row">
                                         <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12 mb-2 form-group">
                                             <label for="firstName" class="col-form-label">First Name</label>
@@ -116,10 +116,10 @@
                                         <div class="col">
                                             <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12 mb-2 form-group">
                                                 <label for="role" class="col-form-label">Role</label>
-                                                <select class="form-control" id="role" name="role">
+                                                <select class="form-control custom-select" id="role" name="role" required>
                                                     <option th:value=" ''" th:text="Select"></option>
-                                                    <option th:each="role : ${roles}" th:value="${role.getRole().id}" th:text="${role.getRole().description}"
-                                                            th:selected="${role.getRole().id}==${user.role.id}"></option>
+                                                    <option th:each="role : ${roles}" th:value="${role.id}" th:text="${role.description}"
+                                                            th:selected="${role.id} == ${user.role.id}"></option>
                                                 </select>
                                                 <div class="invalid-feedback">
                                                     Please select role.
@@ -159,7 +159,7 @@
                                     </thead>
                                     <tbody>
                                     <tr th:each="user, iStat : ${users}" >
-                                        <th th:text="${iStat.index+1}"scope="row"></th>
+                                        <th th:text="${iStat.index+1}" scope="row"></th>
                                         <td th:text="${user.firstName}+' '+ ${user.lastName}"></td>
                                         <td th:text="${user.gender.value}"></td>
                                         <td th:text="${user.userName}"></td>

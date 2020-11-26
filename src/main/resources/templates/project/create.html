@@ -159,7 +159,7 @@
                                         <th th:text="${iStat.index+1}" scope="row"></th>
                                         <td th:text="${project.projectCode}"></td>
                                         <td th:text="${project.projectName}"></td>
-                                        <td th:text="${project.startDate+' - '+project.endDate}"></td>
+                                        <td th:text="${#temporals.format(project.startDate,'MM.dd.yyyy')+' - '+#temporals.format(project.endDate,'MM.dd.yyyy')}"></td>
                                         <td th:text="${project.assignedManager.firstName+' '+project.assignedManager.lastName}"></td>
                                         <td th:text="${project.status.value}"></td>
                                         <td class="actions">

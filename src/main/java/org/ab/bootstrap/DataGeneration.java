@@ -1,22 +1,29 @@
 package org.ab.bootstrap;
 
+import org.ab.dto.ProjectDTO;
 import org.ab.dto.RoleDTO;
 import org.ab.dto.UserDTO;
 import org.ab.enums.Gender;
+import org.ab.enums.Status;
+import org.ab.service.ProjectService;
 import org.ab.service.RoleService;
 import org.ab.service.UserService;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
+
+import java.time.LocalDate;
 
 @Component
 public class DataGeneration implements CommandLineRunner {
 
     RoleService roleService;
     UserService userService;
+    ProjectService projectService;
 
-    public DataGeneration(RoleService roleService, UserService userService) {
+    public DataGeneration(RoleService roleService, UserService userService, ProjectService projectService) {
         this.roleService = roleService;
         this.userService = userService;
+        this.projectService = projectService;
     }
 
     @Override
@@ -43,7 +50,7 @@ public class DataGeneration implements CommandLineRunner {
         roleService.save(sdetRole);
 
         UserDTO user1 = new UserDTO("John", "Kesy",
-                "admin@me.com", "abc", true, "7459684532", adminRole, Gender.MALE);
+                "admin@me.com", "abc", true, "7459684532", managerRole, Gender.MALE);
         UserDTO user5 = new UserDTO("John", "Kesy",
                 "admin2@me.com", "abc", true, "7459684532", adminRole, Gender.MALE);
         UserDTO user2 = new UserDTO("Delisa",
@@ -58,5 +65,15 @@ public class DataGeneration implements CommandLineRunner {
         userService.save(user3);
         userService.save(user4);
         userService.save(user5);
+
+        ProjectDTO project1 = new ProjectDTO("Spring MVC", "IP001",user1, LocalDate.now(), LocalDate.now().plusMonths(2), "MVC Project", Status.OPEN);
+        ProjectDTO project2 = new ProjectDTO("Spring ORM", "IP002",user1, LocalDate.now().minusDays(15), LocalDate.now().plusMonths(1), "ORM Project", Status.IN_PROGRESS);
+        ProjectDTO project3 = new ProjectDTO("Spring DB", "IP003",user3, LocalDate.now().minusDays(8), LocalDate.now().plusMonths(3), "DB Project", Status.SIT_TEST);
+        ProjectDTO project4 = new ProjectDTO("Spring UI", "IP004",user3, LocalDate.now().minusMonths(2), LocalDate.now(), "DB Project", Status.COMPLETED);
+
+        projectService.save(project1);
+        projectService.save(project2);
+        projectService.save(project3);
+        projectService.save(project4);
     }
 }

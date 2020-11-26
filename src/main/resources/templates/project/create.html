@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="/fragments/head :: head-header"></head>
+<body>
+<div class="dashboard-main-wrapper">
+    <div th:replace="/fragments/header :: header"></div>
+    <div th:replace="/fragments/left-sidebar :: left-sidebar"></div>
+    <div class="dashboard-wrapper">
+        <div class="dashboard-ecommerce">
+            <div class="container-fluid dashboard-content">
+                <div class="ecommerce-widget">
+                    <!-- pageheader  ============================================================== -->
+                    <div class="row">
+                        <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+                            <div class="page-header">
+                                <h2 class="pageheader-title"><i class="fa fa-fw fa-dog"></i>
+                                    Administrator
+                                </h2>
+                                <p class="pageheader-text">
+                                </p>
+                                <div class="page-breadcrumb">
+                                    <nav aria-label="breadcrumb">
+                                        <ol class="breadcrumb">
+                                            <li class="breadcrumb-item">
+                                                <a href="#" class="breadcrumb-link">Administrator</a>
+                                            </li>
+                                            <li class="breadcrumb-item active" aria-current="page">
+                                                Create Project
+                                            </li>
+                                        </ol>
+                                    </nav>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- ============================================================== -->
+                </div>
+                <!-- create user  -->
+                <!-- ============================================================== -->
+                <div class="row">
+                    <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+                        <div class="section-block" id="basicForm">
+                            <h3 class="section-title">New Project</h3>
+                        </div>
+                        <div class="card">
+                            <div class="card-body">
+                                <form class="needs-validation" novalidate action="#" th:action="@{/project/create}" method="post"  th:object="${project}">
+                                    <div class="form-group row">
+                                        <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12 mb-2 form-group">
+                                            <label for="projectName" class="col-form-label">Project Name</label>
+                                            <input id="projectName" th:field="*{projectName}" required="" type="text" class="form-control">
+                                            <div class="invalid-feedback">Please enter project name.</div>
+                                        </div>
+                                        <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12 mb-2offset-md-1 form-group">
+                                            <label for="projectCode" class="col-form-label">Project Code</label>
+                                            <input id="projectCode" th:field="*{projectCode}" required="" type="text" placeholder="" class="form-control">
+                                            <div class="invalid-feedback">Please enter project code.</div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group row">
+                                        <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12 mb-2 form-group">
+                                            <label for="assignedManager" class="col-form-label">Assigned Manager</label>
+                                            <select class="form-control" id="assignedManager" th:field="*{assignedManager}">
+                                                <option th:value=" ''" th:text="Select"></option>
+                                                <option th:each="manager : ${managers}" th:value="${manager.userName}" th:text="${manager.firstName+' '+manager.lastName}"></option>
+                                            </select>
+                                            <div class="invalid-feedback">Please enter assigned manager.</div>
+                                        </div>
+<!--                                        <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12 mb-2 form-group">-->
+<!--                                            <label for="projectStatus" class="col-form-label">Project Status</label>-->
+<!--                                            <select class="form-control" id="projectStatus" th:field="*{status}">-->
+<!--                                                <option th:each="theStatus : ${status}" th:value="${Status}" th:text="${Status}"></option>-->
+<!--                                            </select>-->
+<!--                                            <div class="invalid-feedback">Please enter status.</div>-->
+<!--                                        </div>-->
+                                    </div>
+                                    <div class="form-group row">
+                                        <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12 mb-2 form-group">
+                                            <label for="startDate" class="col-form-label">Start Date</label>
+                                            <div class="input-group date" id="datetimepickerStart" data-target-input="nearest">
+                                                <input id="startDate" th:field="*{startDate}" type="date" class="form-control datetimepicker-input" data-target="#datetimepickerStart" />
+                                                <div class="invalid-feedback">Please enter start date.</div>
+<!--                                                <div class="input-group-append" data-target="#datetimepickerStart" data-toggle="datetimepicker">-->
+<!--                                                    &lt;!&ndash;                                                    <div class="input-group-text"><i class="fas fa-calendar-alt"></i></div>&ndash;&gt;-->
+<!--                                                </div>-->
+                                            </div>
+                                        </div>
+                                        <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12 mb-2offset-md-1 form-group">
+                                            <label for="endDate" class="col-form-label">End Date </label>
+                                            <div class="input-group date" id="datetimepickerEnd" data-target-input="nearest">
+                                                <input id="endDate" th:field="*{endDate}" type="date" class="form-control datetimepicker-input" data-target="#datetimepickerEnd" />
+                                                <div class="invalid-feedback">Please enter end date.</div>
+<!--                                                <div class="input-group-append" data-target="#datetimepickerEnd" data-toggle="datetimepicker">-->
+<!--                                                </div>-->
+                                            </div>
+                                        </div>
+                                        <script>
+                                            var today = new Date(new Date().getFullYear(), new Date().getMonth(), new Date().getDate());
+                                            $('#startDate').datepicker({
+                                                uiLibrary: 'bootstrap4',
+                                                iconsLibrary: 'fontawesome',
+                                                minDate: today,
+                                                maxDate: function () {
+                                                    return $('#endDate').val();
+                                                }
+                                            });
+                                            $('#endDate').datepicker({
+                                                uiLibrary: 'bootstrap4',
+                                                iconsLibrary: 'fontawesome',
+                                                minDate: function () {
+                                                    return $('#startDate').val();
+                                                }
+                                            });
+                                        </script>
+                                    </div>
+                                    <div class="form-group row">
+                                        <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 mb-2 form-group">
+                                            <div class="form-group">
+                                                <label for="projectDetails">Project Details</label>
+                                                <textarea class="form-control" id="projectDetails" th:field="*{details}" rows="3"></textarea>
+                                                <div class="invalid-feedback">Please enter project details.</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group row">
+                                        <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12 mb-2 form-group">
+                                            <button type="submit" class="btn btn-space btn-primary">Save</button>
+                                            <button class="btn btn-space btn-secondary">Reset</button>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- responsive user table -->
+                <!-- ============================================================== -->
+                <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+                    <div class="section-block">
+                        <h3 class="section-title">User List</h3>
+                    </div>
+                    <div class="card">
+                        <div class="card-body">
+                            <div class="table-responsive ">
+                                <table class="table">
+                                    <thead>
+                                    <tr>
+                                        <th scope="col">#</th>
+                                        <th scope="col">Project Code</th>
+                                        <th scope="col">Project Name</th>
+                                        <th scope="col">Start - End Dates</th>
+                                        <th scope="col">Manager</th>
+                                        <th scope="col">Project Status</th>
+                                        <th scope="col">Action</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    <tr th:each="project, iStat : ${projects}" >
+                                        <th th:text="${iStat.index+1}" scope="row"></th>
+                                        <td th:text="${project.projectCode}"></td>
+                                        <td th:text="${project.projectName}"></td>
+                                        <td th:text="${project.startDate+' - '+project.endDate}"></td>
+                                        <td th:text="${project.assignedManager.firstName+' '+project.assignedManager.lastName}"></td>
+                                        <td th:text="${project.status.value}"></td>
+                                        <td class="actions">
+                                            <a th:href="@{/project/update/{id}(id=${project.projectCode})}" ><button class="btn btn-space btn-primary fas fa-edit"></button></a>
+                                            <a th:href="@{/project/delete/{id}(id=${project.projectCode})}" ><button class="btn btn-space btn-secondary fas fa-eraser"></button></a>
+                                            <a th:href="@{/project/complete/{id}(id=${project.projectCode})}" ><button class="btn btn-space btn-success fas fa-check-square"></button></a>
+                                        </td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ------------------------TABLE END----------------------------- -->
+        </div>
+    </div>
+    <div th:replace="/fragments/footer :: footer"></div>
+</div>
+<div th:replace="/fragments/javascript :: js"></div>
+</body>
+</html>

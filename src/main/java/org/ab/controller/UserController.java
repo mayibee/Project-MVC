@@ -32,27 +32,26 @@ public class UserController {
     @PostMapping("/create")
     public String insertUser(UserDTO user, Model model){
         userService.save(user);
-        model.addAttribute("user", new UserDTO());
-        model.addAttribute("roles", roleService.findAll());
-        model.addAttribute("users", userService.findAll());
-        return "user/create";
+        return "redirect:/user/create";
     }
 
     @GetMapping("/update/{userName}")
     public String editUser(@PathVariable("userName") String username, Model model) {
         model.addAttribute("user", userService.findById(username));
         model.addAttribute("users", userService.findAll());
-        model.addAttribute("roles", userService.findAll());
+        model.addAttribute("roles", roleService.findAll());
         return "user/update";
     }
 
     @PostMapping("/update/{userName}")
     public String updateUser(@PathVariable("userName") String username, UserDTO user, Model model){
         userService.update(user);
-        model.addAttribute("user", new UserDTO());
-        model.addAttribute("users", userService.findAll());
-        model.addAttribute("roles", roleService.findAll());
+        return "redirect:/user/create";
+    }
 
-        return "user/create";
+    @GetMapping("/delete/{userName}")
+    public String deleteUser(@PathVariable("userName") String username) {
+        userService.deleteById(username);
+        return "redirect:/user/create";
     }
 }

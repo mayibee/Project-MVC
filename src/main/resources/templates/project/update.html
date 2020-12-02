@@ -57,7 +57,7 @@
                                         <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12 mb-2offset-md-1 form-group">
                                             <label for="projectCode" class="col-form-label">Project Code</label>
                                             <input id="projectCode" th:field="*{projectCode}" required="" type="text"
-                                                   placeholder="" class="form-control">
+                                                   placeholder="" class="form-control" readonly>
                                             <div class="invalid-feedback">Please enter project code.</div>
                                         </div>
                                     </div>
@@ -71,10 +71,8 @@
                                         </div>
                                         <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12 mb-2 form-group">
                                             <label for="projectStatus" class="col-form-label">Project Status</label>
-                                            <select class="form-control custom-select" id="projectStatus" name="projectStatus" required>
-                                                <option th:value=" ''" th:text="Select"></option>
-                                                <option th:each="projectStatus : ${statusList}" th:value="${projectStatus}" th:text="${projectStatus}"
-                                                        th:selected="${projectStatus} == ${project.status}"></option>
+                                            <select th:field="*{status}"class="form-control custom-select" id="projectStatus" name="projectStatus" required>
+                                                <option th:each="projectStatus : ${statusList}" th:value="${projectStatus}" th:text="${projectStatus}"></option>
                                             </select>
                                             <div class="invalid-feedback">Please enter status.</div>
                                         </div>

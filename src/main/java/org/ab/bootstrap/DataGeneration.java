@@ -2,11 +2,14 @@ package org.ab.bootstrap;
 
 import org.ab.dto.ProjectDTO;
 import org.ab.dto.RoleDTO;
+import org.ab.dto.TaskDTO;
 import org.ab.dto.UserDTO;
+
 import org.ab.enums.Gender;
 import org.ab.enums.Status;
 import org.ab.service.ProjectService;
 import org.ab.service.RoleService;
+import org.ab.service.TaskService;
 import org.ab.service.UserService;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
@@ -19,11 +22,13 @@ public class DataGeneration implements CommandLineRunner {
     RoleService roleService;
     UserService userService;
     ProjectService projectService;
+    TaskService taskService;
 
-    public DataGeneration(RoleService roleService, UserService userService, ProjectService projectService) {
+    public DataGeneration(RoleService roleService, UserService userService, ProjectService projectService, TaskService taskService) {
         this.roleService = roleService;
         this.userService = userService;
         this.projectService = projectService;
+        this.taskService = taskService;
     }
 
     @Override
@@ -84,10 +89,10 @@ public class DataGeneration implements CommandLineRunner {
         projectService.save(project3);
         projectService.save(project4);
 
-//        TaskDTO task1 = new TaskDTO(1L,project1,user8,"Controller","Request Mapping",Status.IN_PROGRESS,LocalDate.now().minusDays(4));
-//        TaskDTO task2 = new TaskDTO(2L,project3,user3,"Configuration","Database Connnection",Status.COMPLETE,LocalDate.now().minusDays(12));
-//        TaskDTO task3 = new TaskDTO(3L,project3,user6,"Mapping","One-To-Many",Status.IN_PROGRESS,LocalDate.now().minusDays(8));
-//        TaskDTO task4 = new TaskDTO(4L,project2,user7,"Dependency Injection","Autowired",Status.UAT_TEST,LocalDate.now().minusDays(20));
-//        taskService.save(task1);
+        TaskDTO task1 = new TaskDTO(1L,project1,user8,"Controller","Request Mapping",Status.IN_PROGRESS,LocalDate.now().minusDays(4));
+        TaskDTO task2 = new TaskDTO(2L,project3,user3,"Configuration","Database Connnection",Status.COMPLETED,LocalDate.now().minusDays(12));
+        TaskDTO task3 = new TaskDTO(3L,project3,user6,"Mapping","One-To-Many",Status.IN_PROGRESS,LocalDate.now().minusDays(8));
+        TaskDTO task4 = new TaskDTO(4L,project2,user7,"Dependency Injection","Autowired",Status.UAT_TEST,LocalDate.now().minusDays(20));
+        taskService.save(task1);
     }
 }

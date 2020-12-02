@@ -1,4 +1,6 @@
 package org.ab.service;
 
-public interface TaskService {
+import org.ab.dto.TaskDTO;
+
+public interface TaskService extends CrudService<TaskDTO, Long>{
 }

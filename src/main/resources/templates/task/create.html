@@ -65,7 +65,8 @@
                                                 <label for="selectProject" class="col-form-label">Project</label>
                                                 <select class="form-control" id="selectProject" th:field="*{project}">
                                                     <option th:value=" ''" th:text="Select"></option>
-                                                    <option th:each="project : ${projects}" th:value="${project.projectCode}" th:text="${project.projectName}"></option>
+                                                    <option th:each="project : ${projects}" th:value="${project.projectCode}"
+                                                            th:text="${project.projectCode+': '+project.projectName}"></option>
                                                 </select>
                                             </div>
                                         </div>
@@ -76,7 +77,8 @@
                                                 <label for="selectEmployee" class="col-form-label">Assignee</label>
                                                 <select class="form-control" id="selectEmployee" th:field="*{assignee}">
                                                     <option th:value=" ''" th:text="Select"></option>
-                                                    <option th:each="assignee : ${employees}" th:value="${assignee.userName}" th:text="${assignee.firstName+' '+assignee.lastName}"></option>
+                                                    <option th:each="assignee : ${employees}" th:value="${assignee.userName}"
+                                                            th:text="${assignee.firstName+' '+assignee.lastName}"></option>
                                                 </select>
                                             </div>
                                         </div>
@@ -114,16 +116,16 @@
                                     </tr>
                                     </thead>
                                     <tbody>
-                                    <tr th:each="project, iStat : ${projects}" >
+                                    <tr th:each="task, iStat : ${tasks}" >
                                         <th th:text="${iStat.index+1}" scope="row"></th>
-                                        <td th:text="${task.project}">IP001:Infrastructure Update</td>
-                                        <td th:text="${task.taskSummary}">Create Jenkins pipeline</td>
-                                        <td th:text="${task.assignee}">Mary Bravo</td>
-                                        <td th:text="${task.assignedDate}">11/01/2020</td>
-                                        <td th:text="${task.taskStatus}">In Progress</td>
+                                        <td th:text="${task.project.projectCode+': '+task.project.projectName}"></td>
+                                        <td th:text="${task.taskSummary}"></td>
+                                        <td th:text="${task.assignee.firstName+' '+task.assignee.lastName}"></td>
+                                        <td th:text="${#temporals.format(task.assignedDate,'MM/dd/yyyy')}"></td>
+                                        <td th:text="${task.taskStatus}"></td>
                                         <td class="actions">
-                                            <a th:href="@{/task/update/{id}(id=${project.projectCode})}" ><button class="btn btn-space btn-primary fas fa-edit"></button></a>
-                                            <a th:href="@{/task/delete/{id}(id=${project.projectCode})}" ><button class="btn btn-space btn-secondary fas fa-eraser"></button></a>
+                                            <a th:href="@{/task/update/{id}(id=${task.id})}" ><button class="btn btn-space btn-primary fas fa-edit"></button></a>
+                                            <a th:href="@{/task/delete/{id}(id=${task.id})}" ><button class="btn btn-space btn-secondary fas fa-eraser"></button></a>
                                         </td>
                                     </tr>
                                     </tbody>

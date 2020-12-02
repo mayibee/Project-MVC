@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="/fragments/head :: head-header"></head>
+<body>
+<div class="dashboard-main-wrapper">
+    <div th:replace="/fragments/header :: header"></div>
+    <div th:replace="/fragments/left-sidebar :: left-sidebar"></div>
+    <div class="dashboard-wrapper">
+        <div class="dashboard-ecommerce">
+            <div class="container-fluid dashboard-content">
+                <div class="ecommerce-widget">
+                    <!-- pageheader  ============================================================== -->
+                    <div class="row">
+                        <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+                            <div class="page-header">
+                                <h2 class="pageheader-title"><i class="fa fa-fw fa-dog"></i>
+                                    Manager
+                                </h2>
+                                <p class="pageheader-text">
+                                </p>
+                                <div class="page-breadcrumb">
+                                    <nav aria-label="breadcrumb">
+                                        <ol class="breadcrumb">
+                                            <li class="breadcrumb-item">
+                                                <a href="#" class="breadcrumb-link">Manager</a>
+                                            </li>
+                                            <li class="breadcrumb-item active" aria-current="page">
+                                                Update Task
+                                            </li>
+                                        </ol>
+                                    </nav>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- ============================================================== -->
+                </div>
+                <!-- create user  -->
+                <!-- ============================================================== -->
+                <div class="row">
+                    <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+                        <div class="section-block" id="basicForm">
+                            <h3 class="section-title">Update Task</h3>
+                        </div>
+                        <div class="card">
+                            <div class="card-body">
+                                <form class="needs-validation" novalidate action="#" th:action="@{/task/update/{id}(id=${task.id})}" method="post"  th:object="${task}">
+                                    <div class="form-group row">
+                                        <div class="col-xl-8 col-lg-8 col-md-12 col-sm-12 col-12 mb-2 form-group">
+                                            <label for="taskSummary" class="col-form-label">Task Summary</label>
+                                            <input id="taskSummary" th:field="*{taskSummary}" required="" type="text" class="form-control">
+                                        </div>
+                                    </div>
+                                    <div class="form-group row">
+                                        <div class="col-xl-8 col-lg-8 col-md-12 col-sm-12 col-12 mb-2 form-group">
+                                            <div class="form-group">
+                                                <label for="taskDetails">Task Details</label>
+                                                <textarea class="form-control" id="taskDetails" th:field="*{taskDetails}" rows="3"></textarea>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group row">
+                                        <div class="col">
+                                            <div class="col-xl-8 col-lg-8 col-md-12 col-sm-12 col-12 form-group">
+                                                <label for="selectProject" class="col-form-label">Project</label>
+                                                <select class="form-control" id="selectProject" th:field="*{project}">
+                                                    <option th:each="project : ${projects}" th:value="${project.projectCode}"
+                                                            th:text="${project.projectCode+': '+project.projectName}"></option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group row">
+                                        <div class="col">
+                                            <div class="col-xl-8 col-lg-8 col-md-12 col-sm-12 col-12 form-group">
+                                                <label for="selectEmployee" class="col-form-label">Assignee</label>
+                                                <select class="form-control" id="selectEmployee" th:field="*{assignee}">
+                                                    <option th:each="assignee : ${employees}" th:value="${assignee.userName}"
+                                                            th:text="${assignee.firstName+' '+assignee.lastName}"></option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group row">
+                                        <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12 mb-2 form-group">
+                                            <button type="submit" class="btn btn-space btn-primary">Save</button>
+                                            <button class="btn btn-space btn-secondary">Reset</button>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- responsive user table -->
+                <!-- ============================================================== -->
+                <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+                    <div class="section-block">
+                        <h3 class="section-title">Task List</h3>
+                    </div>
+                    <div class="card">
+                        <div class="card-body">
+                            <div class="table-responsive ">
+                                <table class="table">
+                                    <thead>
+                                    <tr>
+                                        <th scope="col">#</th>
+                                        <th scope="col">Project</th>
+                                        <th scope="col">Task Summary</th>
+                                        <th scope="col">Assignee</th>
+                                        <th scope="col">Assigned Date</th>
+                                        <th scope="col">Status</th>
+                                        <th scope="col">Action</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    <tr th:each="task, iStat : ${tasks}" >
+                                        <th th:text="${iStat.index+1}" scope="row"></th>
+                                        <td th:text="${task.project.projectCode+': '+task.project.projectName}"></td>
+                                        <td th:text="${task.taskSummary}"></td>
+                                        <td th:text="${task.assignee.firstName+' '+task.assignee.lastName}"></td>
+                                        <td th:text="${#temporals.format(task.assignedDate,'MM/dd/yyyy')}"></td>
+                                        <td th:text="${task.taskStatus}"></td>
+                                        <td class="actions">
+                                            <a th:href="@{/task/update/{id}(id=${task.id})}" ><button class="btn btn-space btn-primary fas fa-edit"></button></a>
+                                            <a th:href="@{/task/delete/{id}(id=${task.id})}" ><button class="btn btn-space btn-secondary fas fa-eraser"></button></a>
+                                        </td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ------------------------TABLE END----------------------------- -->
+        </div>
+    </div>
+    <div th:replace="/fragments/footer :: footer"></div>
+</div>
+<div th:replace="/fragments/javascript :: js"></div>
+</body>
+</html>

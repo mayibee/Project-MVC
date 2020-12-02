@@ -1,5 +1,6 @@
 package org.ab.implementation;
 
+import org.ab.dto.ProjectDTO;
 import org.ab.dto.TaskDTO;
 import org.ab.service.TaskService;
 import org.springframework.stereotype.Service;
@@ -32,6 +33,13 @@ public class TaskServiceImpl extends AbstractMapService<TaskDTO,Long> implements
 
     @Override
     public void update(TaskDTO object) {
+        TaskDTO newTask = findById(object.getId());
+        if(object.getTaskStatus() == null) {
+            object.setTaskStatus(newTask.getTaskStatus());
+        }
+        if(object.getAssignedDate() == null) {
+            object.setAssignedDate(newTask.getAssignedDate());
+        }
         super.update(object.getId(), object);
     }
 

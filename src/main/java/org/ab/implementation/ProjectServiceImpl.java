@@ -1,6 +1,7 @@
 package org.ab.implementation;
 
 import org.ab.dto.ProjectDTO;
+import org.ab.enums.Status;
 import org.ab.service.ProjectService;
 import org.springframework.stereotype.Service;
 
@@ -36,5 +37,11 @@ public class ProjectServiceImpl extends AbstractMapService<ProjectDTO,String> im
     @Override
     public ProjectDTO findById(String projectCode) {
         return super.findById(projectCode);
+    }
+
+    @Override
+    public void complete(ProjectDTO project) {
+        project.setStatus(Status.COMPLETED);
+        super.save(project.getProjectCode(),project);
     }
 }

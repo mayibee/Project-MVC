@@ -64,10 +64,8 @@
                                     <div class="form-group row">
                                         <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12 mb-2 form-group">
                                             <label for="assignedManager" class="col-form-label">Assigned Manager</label>
-                                            <select class="form-control custom-select" id="assignedManager" name="assignedManager" required>
-                                                <option th:value=" ''" th:text="Select"></option>
-                                                <option th:each="manager : ${managers}" th:value="${manager.userName}" th:text="${manager.firstName+' '+manager.lastName}"
-                                                        th:selected="${manager.userName} == ${project.assignedManager.userName}"></option>
+                                            <select th:field="*{assignedManager}" class="form-control custom-select" id="assignedManager" name="assignedManager" required>
+                                                <option th:each="manager : ${managers}" th:value="${manager.userName}" th:text="${manager.firstName+' '+manager.lastName}"></option>
                                             </select>
                                             <div class="invalid-feedback">Please enter assigned manager.</div>
                                         </div>
